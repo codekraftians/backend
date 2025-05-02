@@ -42,11 +42,12 @@ public class EventService {
             throw new TitleAlreadyExistsException("[ERROR]: Ya existe un evento con el mismo título en la base de datos");
         }
         
-    }
-
         event.setUser(userOptional.get());
         event.setCategory(categoryOptional.get());
         return new ResponseEntity<>(eventRepository.save(event), HttpStatus.CREATED);
+
+    }
+        
     }
 
     public List<Event> getAllEvents() {
