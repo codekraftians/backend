@@ -14,7 +14,7 @@ import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.Size;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
-import com.backend.backend.model.Event;
+
 
 
 @Entity
