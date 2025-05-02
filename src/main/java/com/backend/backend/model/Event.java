@@ -29,7 +29,7 @@ public class Event {
     @NotBlank(message = "Tittle is required")
     @Size(min = 3, max = 50, message = "Tittle must have min 3 and max 50 characters")
     @Pattern(regexp = "^[a-zA-Z0-9_.\\-\\s]+$", message = "Only letters, numbers, spaces, hyphens, underscores, and dots are allowed")// Pendiente de la aprobaci{on del cliente
-    private String tittle;
+    private String title;
 
 
     @NotBlank(message = "Description is required")
@@ -74,10 +74,10 @@ public class Event {
    
 
     // Constructores de la entidad
-    public Event(int id, String tittle, String description, String event_date, String events_image_url, String event_time,
-            String location, String max_attendees,Category category, User user) {
+    public Event(int id, String title, String description, String event_date, String events_image_url, String event_time,
+            String location, String max_attendees, Category category, User user) {
         this.id = id;
-        this.tittle = tittle;
+        this.title = title;
         this.description = description;
         this.event_date = event_date;
         this.events_image_url = events_image_url;
@@ -102,12 +102,12 @@ public class Event {
         this.id = id;
     }
 
-    public String getTittle() {
-        return this.tittle;
+    public String getTitle() {
+        return this.title;
     }
 
-    public void setTittle(String tittle) {
-        this.tittle = tittle;
+    public void setTitle(String tittle) {
+        this.title = tittle;
     }
 
     public String getDescription() {
