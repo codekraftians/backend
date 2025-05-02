@@ -14,7 +14,8 @@ import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.Size;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
-import com.backend.backend.model.Event;
+//import com.backend.backend.model.Events;
+
 
 @Entity
 @Table(name = "categories")
@@ -32,9 +33,6 @@ public class Category {
   @Size(max = 20, message = "[ERROR!] Máximo de 20 caracteres permitidos en este campo")
   private String category;
 
-  public enum CategoryType {
-    ONLINE, IN_PERSON
-  }
 
   @Column(nullable = false)
   @Enumerated(EnumType.STRING)
@@ -81,3 +79,6 @@ public class Category {
   }
 
 }
+
+
+//The coment is beacause we need a Event model. When it is check. We will import
