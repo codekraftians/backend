@@ -7,8 +7,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
-import com.backend.backend.Validation.DescriptionAlreadyExistsException;
-import com.backend.backend.Validation.TitleAlreadyExistsException;
+//import com.backend.backend.Validation.DescriptionAlreadyExistsException;
+//import com.backend.backend.Validation.TitleAlreadyExistsException;
 import com.backend.backend.model.Event;
 import com.backend.backend.model.User;
 import com.backend.backend.model.Category;
@@ -38,8 +38,8 @@ public class EventService {
         if (!categoryOptional.isPresent()) {
             return ResponseEntity.notFound().build();
         }
-        if (event.getTitle() != null && eventRepository.findByTitle(event.getTitle()).isPresent()) {
-            throw new TitleAlreadyExistsException("[ERROR]: Ya existe un evento con el mismo título en la base de datos");
+        if (event.getTitle() != null && !eventRepository.findByTitle(event.getTitle()).isEmpty()) {
+           // throw new TitleAlreadyExistsException("[ERROR]: Ya existe un evento con el mismo título en la base de datos");
         }
         
         event.setUser(userOptional.get());
@@ -78,7 +78,7 @@ public class EventService {
     }
 
     @Transactional(propagation = Propagation.REQUIRES_NEW)
-    public ResponseEntity<Object> deleteEvent(Integer id) {
+    public ResponseEntity<Object> deleteById(Integer id) {
         Optional<Event> eventOptional = eventRepository.findById(id);
 
         if (!eventOptional.isPresent()) {

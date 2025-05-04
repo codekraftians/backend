@@ -36,8 +36,8 @@ public class EventController {
     }
 
     @GetMapping
-    public List<EVENT> getAllEvent() {
-        return eventService.getAllArticles();
+    public List<Event> getAllEvent() {
+        return eventService.getAllEvents();
     }
 
     @PatchMapping("/{id}")
@@ -46,7 +46,7 @@ public class EventController {
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Object> deleteArticle(@PathVariable Integer id) {
-        return this.eventService.deleteArticle(id);
+    public ResponseEntity<Object> deleteById(@PathVariable Integer id) {
+        return this.eventService.deleteById(id);
     }
 }
