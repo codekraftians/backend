@@ -12,20 +12,30 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.http.HttpStatus;
+import org.springframework.beans.factory.annotation.Autowired;
+//import com.backend.backend.exception.ResourceNotFoundException;
+//import com.backend.backend.model.ErrorResponse;
 
 @RestController
-@RequestMapping("api/v1/events")
+@RequestMapping("/api/v1/events")
 public class EventController {
 
     private final EventService eventService;
 
+    @Autowired
     public EventController(EventService eventService) {
         this.eventService = eventService;
     }
 
     @PostMapping("/user/{userId}")
     public ResponseEntity<Object> createEvent(@PathVariable Integer userId, @Valid @RequestBody Event event) {
-        return eventService.createEvent(userId, event);
+        Event createdEvent = eventService.createEvent(event, userId);
+        if (createdEvent == null) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND)
+                .body("Could not create event. User or category not found.");
+        }
+        return ResponseEntity.status(HttpStatus.CREATED).body(createdEvent);
     }
 
     @GetMapping("/{id}")

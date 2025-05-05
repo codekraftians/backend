@@ -1,6 +1,11 @@
 package com.backend.backend.model;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
+//import com.fasterxml.jackson.annotation.JsonBackReference;
+//import com.fasterxml.jackson.annotation.JsonIgnore;
+
+import jakarta.persistence.Column;
+
+//import com.fasterxml.jackson.annotation.JsonBackReference;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -10,10 +15,13 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.SequenceGenerator;
 import jakarta.persistence.Table;
-import jakarta.persistence.Transient;
+//import jakarta.persistence.Transient;
 import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.Size;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
+import jakarta.validation.constraints.NotNull;
 
 
 @Entity
@@ -26,56 +34,55 @@ public class Event {
     @SequenceGenerator(name = "events_seq", sequenceName = "events_sequence", allocationSize = 1)
     private int id;
 
-
+    @Column
     @NotBlank(message = "Title is required")
     @Size(min = 3, max = 50, message = "Title must have min 3 and max 50 characters")
     @Pattern(regexp = "^[a-zA-Z0-9_.\\-\\s]+$", message = "Only letters, numbers, spaces, hyphens, underscores, and dots are allowed")
     private String title;
 
-
+    @Column
     @NotBlank(message = "Description is required")
     @Size(min = 3, max = 255, message = "Description must have min 3 and max 255 characters")
     @Pattern(regexp = "^[a-zA-Z0-9_.\\-\\s]+$", message = "Only letters, numbers, spaces, hyphens, underscores, and dots are allowed")
     private String description;
 
+    @Column
     @NotBlank(message = "Event Date is required")
     @Size(min = 3, max = 20, message = "Event Date must have min 3 and max 20 characters")
     @Pattern(regexp = "^[0-9]{4}-[0-9]{2}-[0-9]{2}$", message = "Event Date must be in YYYY-MM-DD format")
     private String eventDate;
 
+    @Column
     @Pattern(regexp = "^(http|https)://.*$", message = "The image URL must be a valid HTTP or HTTPS URL")
     private String eventsImageUrl;
 
+    @Column
     @NotBlank(message = "Event Time is required")
     @Size(min = 3, max = 10, message = "Event Time must have min 3 and max 10 characters")
     @Pattern(regexp = "^[0-9]{2}:[0-9]{2}$", message = "Event Time must be in HH:MM format")
     private String eventTime;
 
+    @Column
     @NotBlank(message = "Event Location is required")
     @Size(min = 3, max = 50, message = "Event Location must have min 3 and max 50 characters")
     @Pattern(regexp = "^[a-zA-Z0-9_.\\-\\s]+$", message = "Only letters, numbers, spaces, hyphens, underscores, and dots are allowed")
     private String location;
 
+    @Column
     @NotBlank(message = "Max attendees is required")
     @Size(min = 1, max = 3, message = "Max attendees must have min 1 and max 3 characters")
     @Pattern(regexp = "^[0-9]+$", message = "Max attendees must be a number")
     private String maxAttendees;
 
-    // Campo transitorio para recibir el tipo de evento del usuario
-    @NotBlank(message = "Event type is required")
-    @Pattern(regexp = "^(ONLINE|IN_PERSON)$", message = "Event type must be 'ONLINE' or 'IN_PERSON'")
-    @Transient // No se persiste en la base de datos
-    private String eventType;
-
-    // Relación con la entidadcategory
-    @ManyToOne
-    @JoinColumn(name = "category_id", nullable = false)
-    @JsonBackReference
-    private Category category;
+    // Campo para el tipo de evento seleccionado por el usuario
+    @Column(nullable = false)
+    @NotNull(message = "Event type is required")
+    @Enumerated(EnumType.STRING)
+    private CategoryType eventType;
 
     @ManyToOne
     @JoinColumn(name = "user_id", nullable = false)
-    @JsonBackReference
+    //@JsonBackReference
     private User user;
 
    
@@ -164,14 +171,6 @@ public class Event {
         this.maxAttendees = maxAttendees;
     }
 
-    public Category getCategory() {
-        return this.category;
-    }
-
-    public void setCategory(Category category) {
-        this.category = category;
-    }
-
     public User getUser() {
         return this.user;
     }
@@ -180,11 +179,11 @@ public class Event {
         this.user = user;
     }
     
-    public String getEventType() {
-       return this.eventType;
-   }
+    public CategoryType getEventType() {
+        return this.eventType;
+    }
     
-    public void setEventType(String eventType) {
+    public void setEventType(CategoryType eventType) {
         this.eventType = eventType;
     }
 }

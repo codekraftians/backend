@@ -7,68 +7,46 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
-//import com.backend.backend.Validation.DescriptionAlreadyExistsException;
-//import com.backend.backend.Validation.TitleAlreadyExistsException;
+import org.springframework.beans.factory.annotation.Autowired;
+//import com.backend.backend.Validation.ResourceNotFoundException;
+//import com.backend.backend.exception.ResourceNotFoundException;
 import com.backend.backend.model.Event;
 import com.backend.backend.model.User;
-import com.backend.backend.model.Category;
-import com.backend.backend.model.CategoryType;
+//import com.backend.backend.model.Category;
+//import com.backend.backend.model.CategoryType;
 import com.backend.backend.repository.EventRepository;
 import com.backend.backend.repository.UserRepository;
-import com.backend.backend.repository.CategoryRepository;
+//import com.backend.backend.repository.CategoryRepository;
 
 @Service
 public class EventService {
 
     private final EventRepository eventRepository;
     private final UserRepository userRepository;
-    private final CategoryRepository categoryRepository;
+   // private final CategoryRepository categoryRepository;
 
-    public EventService(EventRepository eventRepository, UserRepository userRepository, CategoryRepository categoryRepository) {
+    @Autowired
+    public EventService(EventRepository eventRepository, UserRepository userRepository) {
         this.eventRepository = eventRepository;
         this.userRepository = userRepository;
-        this.categoryRepository = categoryRepository;
+        // Eliminar la inicialización de categoryRepository
+        // this.categoryRepository = categoryRepository;
     }
 
-    public ResponseEntity<Object> createEvent(Integer userId, Event event) {
+    @Transactional
+    public Event createEvent(Event event, Integer userId) {
+        // Validar usuario
         Optional<User> userOptional = userRepository.findById(userId);
-        if (!userOptional.isPresent()) {
-            return ResponseEntity.notFound().build();
+        if (userOptional.isEmpty()) {
+            return null; // Indicar que no se encontró el usuario
         }
         
-        // Buscar la categoría basada en el tipo de evento
-        CategoryType categoryType;
-        try {
-            categoryType = CategoryType.valueOf(event.getEventType());
-        } catch (IllegalArgumentException e) {
-            return ResponseEntity.badRequest().body("Invalid event type: " + event.getEventType());
-        }
-        
-        // Buscar la categoría correspondiente al tipo de evento
-        List<Category> categories = categoryRepository.findAll();
-        Category selectedCategory = null;
-        
-        for (Category category : categories) {
-            if (category.getCategoryType() == categoryType) {
-                selectedCategory = category;
-                break;
-            }
-        }
-        
-        if (selectedCategory == null) {
-            return ResponseEntity.badRequest().body("No category found for event type: " + event.getEventType());
-        }
-        
-        if (event.getTitle() != null && !eventRepository.findByTitle(event.getTitle()).isEmpty()) {
-            return ResponseEntity.badRequest().body("An event with this title already exists");
-        }
-        
+        // Ya no necesitamos buscar una categoría
+        // Simplemente asignamos el usuario
         event.setUser(userOptional.get());
-        event.setCategory(selectedCategory);
-        return new ResponseEntity<>(eventRepository.save(event), HttpStatus.CREATED);
-    }
         
-
+        return eventRepository.save(event);
+    }
 
     public List<Event> getAllEvents() {
         return this.eventRepository.findAll();
