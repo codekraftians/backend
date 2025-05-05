@@ -4,11 +4,184 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>API Documentation - Tech Safe Space</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config={
+            plugins: [require('daisyui')],
+        };
+    </script>
 </head>
 
-<body>
-    <h1>ALBA ES UNA CRACK</h1>
+<body class="bg-gray-100 text-gray-800">
+    <!-- Header -->
+    <header class="bg-blue-600 text-white p-6">
+        <h1 class="text-3xl font-bold text-center">Tech Safe Space API Documentation</h1>
+    </header>
+
+    <!-- Main Content -->
+    <main class="container mx-auto p-6">
+        <!-- Category Section -->
+        <section id="category" class="mb-8">
+            <h2 class="text-2xl font-semibold mb-4">Category Endpoints</h2>
+            <div class="bg-white shadow-md rounded-lg p-6">
+                <ul class="space-y-6">
+                    <li>
+                        <h3 class="text-lg font-bold">Get All Categories</h3>
+                        <p>Send a <code class="bg-gray-200 px-2 py-1 rounded">GET</code> request to:</p>
+                        <code class="block bg-gray-100 p-2 rounded">/api/v1/categories</code>
+                    </li>
+                    <li>
+                        <h3 class="text-lg font-bold">Get Category By ID</h3>
+                        <p>Send a <code class="bg-gray-200 px-2 py-1 rounded">GET</code> request to:</p>
+                        <code class="block bg-gray-100 p-2 rounded">/api/v1/categories/{id}</code>
+                    </li>
+                    <li>
+                        <h3 class="text-lg font-bold">Create a Category</h3>
+                        <p>Send a <code class="bg-gray-200 px-2 py-1 rounded">POST</code> request to:</p>
+                        <code class="block bg-gray-100 p-2 rounded">/api/v1/categories</code>
+                        <p class="mt-2">With the following JSON body:</p>
+                        <pre class="bg-gray-100 p-4 rounded">
+{
+    "type": "Category Name"
+}
+                        </pre>
+                    </li>
+                    <li>
+                        <h3 class="text-lg font-bold">Update a Category</h3>
+                        <p>Send a <code class="bg-gray-200 px-2 py-1 rounded">PUT</code> request to:</p>
+                        <code class="block bg-gray-100 p-2 rounded">/api/v1/categories/{id}</code>
+                        <p class="mt-2">With the following JSON body:</p>
+                        <pre class="bg-gray-100 p-4 rounded">
+{
+    "type": "Updated Category Name"
+}
+                        </pre>
+                    </li>
+                    <li>
+                        <h3 class="text-lg font-bold">Delete a Category</h3>
+                        <p>Send a <code class="bg-gray-200 px-2 py-1 rounded">DELETE</code> request to:</p>
+                        <code class="block bg-gray-100 p-2 rounded">/api/v1/categories/{id}</code>
+                    </li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- Event Section -->
+        <section id="event" class="mb-8">
+            <h2 class="text-2xl font-semibold mb-4">Event Endpoints</h2>
+            <div class="bg-white shadow-md rounded-lg p-6">
+                <ul class="space-y-6">
+                    <li>
+                        <h3 class="text-lg font-bold">Get All Events</h3>
+                        <p>Send a <code class="bg-gray-200 px-2 py-1 rounded">GET</code> request to:</p>
+                        <code class="block bg-gray-100 p-2 rounded">/api/v1/events</code>
+                    </li>
+                    <li>
+                        <h3 class="text-lg font-bold">Get Event By ID</h3>
+                        <p>Send a <code class="bg-gray-200 px-2 py-1 rounded">GET</code> request to:</p>
+                        <code class="block bg-gray-100 p-2 rounded">/api/v1/events/{id}</code>
+                    </li>
+                    <li>
+                        <h3 class="text-lg font-bold">Create an Event</h3>
+                        <p>Send a <code class="bg-gray-200 px-2 py-1 rounded">POST</code> request to:</p>
+                        <code class="block bg-gray-100 p-2 rounded">/api/v1/events</code>
+                        <p class="mt-2">With the following JSON body:</p>
+                        <pre class="bg-gray-100 p-4 rounded">
+{
+    "title": "Event Title",
+    "description": "This is the description of the event.",
+    "event_date": "2025-05-10",
+    "event_time": "15:00",
+    "event_image_url": "https://example.com/event-image.jpg",
+    "location": "Event Location",
+    "max_attendees": 100
+}
+                        </pre>
+                    </li>
+                    <li>
+                        <h3 class="text-lg font-bold">Update an Event</h3>
+                        <p>Send a <code class="bg-gray-200 px-2 py-1 rounded">PUT</code> request to:</p>
+                        <code class="block bg-gray-100 p-2 rounded">/api/v1/events/{id}</code>
+                        <p class="mt-2">With the following JSON body:</p>
+                        <pre class="bg-gray-100 p-4 rounded">
+{
+    "title": "Updated Event Title",
+    "description": "Updated description of the event.",
+    "event_date": "2025-05-15",
+    "event_time": "18:00",
+    "event_image_url": "https://example.com/updated-event-image.jpg",
+    "location": "Updated Location",
+    "max_attendees": 150
+}
+                        </pre>
+                    </li>
+                    <li>
+                        <h3 class="text-lg font-bold">Delete an Event</h3>
+                        <p>Send a <code class="bg-gray-200 px-2 py-1 rounded">DELETE</code> request to:</p>
+                        <code class="block bg-gray-100 p-2 rounded">/api/v1/events/{id}</code>
+                    </li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- User Section -->
+        <section id="user" class="mb-8">
+            <h2 class="text-2xl font-semibold mb-4">User Endpoints</h2>
+            <div class="bg-white shadow-md rounded-lg p-6">
+                <ul class="space-y-6">
+                    <li>
+                        <h3 class="text-lg font-bold">Get All Users</h3>
+                        <p>Send a <code class="bg-gray-200 px-2 py-1 rounded">GET</code> request to:</p>
+                        <code class="block bg-gray-100 p-2 rounded">/api/v1/users</code>
+                    </li>
+                    <li>
+                        <h3 class="text-lg font-bold">Get User By ID</h3>
+                        <p>Send a <code class="bg-gray-200 px-2 py-1 rounded">GET</code> request to:</p>
+                        <code class="block bg-gray-100 p-2 rounded">/api/v1/users/{id}</code>
+                    </li>
+                    <li>
+                        <h3 class="text-lg font-bold">Create a User</h3>
+                        <p>Send a <code class="bg-gray-200 px-2 py-1 rounded">POST</code> request to:</p>
+                        <code class="block bg-gray-100 p-2 rounded">/api/v1/users</code>
+                        <p class="mt-2">With the following JSON body:</p>
+                        <pre class="bg-green-100 p-4 rounded">
+{
+    "name": "User Name",
+    "email": "user@example.com",
+    "password": "Password123!",
+    "user_image_url": "https://example.com/user-image.jpg"
+}
+                        </pre>
+                    </li>
+                    <li>
+                        <h3 class="text-lg font-bold">Update a User</h3>
+                        <p>Send a <code class="bg-gray-200 px-2 py-1 rounded">PUT</code> request to:</p>
+                        <code class="block bg-gray-100 p-2 rounded">/api/v1/users/{id}</code>
+                        <p class="mt-2">With the following JSON body:</p>
+                        <pre class="bg-gray-100 p-4 rounded">
+{
+    "name": "Updated User Name",
+    "email": "updateduser@example.com",
+    "password": "UpdatedPassword123!",
+    "user_image_url": "https://example.com/updated-user-image.jpg"
+}
+                        </pre>
+                    </li>
+                    <li>
+                        <h3 class="text-lg font-bold">Delete a User</h3>
+                        <p>Send a <code class="bg-gray-200 px-2 py-1 rounded">DELETE</code> request to:</p>
+                        <code class="block bg-gray-100 p-2 rounded">/api/v1/users/{id}</code>
+                    </li>
+                </ul>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-blue-600 text-white text-center p-4">
+        &copy; 2025 Tech Safe Space. All rights reserved.
+    </footer>
 </body>
 
 </html>
