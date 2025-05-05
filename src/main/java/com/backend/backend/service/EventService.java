@@ -12,6 +12,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.backend.backend.model.Event;
 import com.backend.backend.model.User;
 import com.backend.backend.model.Category;
+import com.backend.backend.model.CategoryType;
 import com.backend.backend.repository.EventRepository;
 import com.backend.backend.repository.UserRepository;
 import com.backend.backend.repository.CategoryRepository;
@@ -29,23 +30,42 @@ public class EventService {
         this.categoryRepository = categoryRepository;
     }
 
-    public ResponseEntity<Object> createEvent(Integer userId, Event event, Integer categoryId) {
+    public ResponseEntity<Object> createEvent(Integer userId, Event event) {
         Optional<User> userOptional = userRepository.findById(userId);
-        Optional<Category> categoryOptional = categoryRepository.findById(categoryId);
         if (!userOptional.isPresent()) {
             return ResponseEntity.notFound().build();
         }
-        if (!categoryOptional.isPresent()) {
-            return ResponseEntity.notFound().build();
+        
+        // Buscar la categoría basada en el tipo de evento
+        CategoryType categoryType;
+        try {
+            categoryType = CategoryType.valueOf(event.getEventType());
+        } catch (IllegalArgumentException e) {
+            return ResponseEntity.badRequest().body("Invalid event type: " + event.getEventType());
         }
+        
+        // Buscar la categoría correspondiente al tipo de evento
+        List<Category> categories = categoryRepository.findAll();
+        Category selectedCategory = null;
+        
+        for (Category category : categories) {
+            if (category.getCategoryType() == categoryType) {
+                selectedCategory = category;
+                break;
+            }
+        }
+        
+        if (selectedCategory == null) {
+            return ResponseEntity.badRequest().body("No category found for event type: " + event.getEventType());
+        }
+        
         if (event.getTitle() != null && !eventRepository.findByTitle(event.getTitle()).isEmpty()) {
-           // throw new TitleAlreadyExistsException("[ERROR]: Ya existe un evento con el mismo título en la base de datos");
+            return ResponseEntity.badRequest().body("An event with this title already exists");
         }
         
         event.setUser(userOptional.get());
-        event.setCategory(categoryOptional.get());
+        event.setCategory(selectedCategory);
         return new ResponseEntity<>(eventRepository.save(event), HttpStatus.CREATED);
-
     }
         
 

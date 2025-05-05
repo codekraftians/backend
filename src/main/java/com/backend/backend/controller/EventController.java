@@ -21,13 +21,11 @@ public class EventController {
 
     public EventController(EventService eventService) {
         this.eventService = eventService;
-
     }
 
     @PostMapping("/user/{userId}")
     public ResponseEntity<Object> createEvent(@PathVariable Integer userId, @Valid @RequestBody Event event) {
-        Integer categoryId = event.getCategory().getId();
-        return eventService.createEvent(userId, event, categoryId);
+        return eventService.createEvent(userId, event);
     }
 
     @GetMapping("/{id}")
