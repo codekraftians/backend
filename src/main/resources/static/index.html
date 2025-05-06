@@ -7,7 +7,7 @@
     <title>API Documentation - Tech Safe Space</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
-        tailwind.config={
+        tailwind.config = {
             plugins: [require('daisyui')],
         };
     </script>
@@ -85,19 +85,21 @@
                     <li>
                         <h3 class="text-lg font-bold">Create an Event</h3>
                         <p>Send a <code class="bg-gray-200 px-2 py-1 rounded">POST</code> request to:</p>
-                        <code class="block bg-gray-100 p-2 rounded">/api/v1/events</code>
+                        <code class="block bg-gray-100 p-2 rounded">/api/v1/events/user/{userId}</code>
                         <p class="mt-2">With the following JSON body:</p>
                         <pre class="bg-gray-100 p-4 rounded">
 {
     "title": "Event Title",
     "description": "This is the description of the event.",
-    "event_date": "2025-05-10",
-    "event_time": "15:00",
-    "event_image_url": "https://example.com/event-image.jpg",
+    "eventDate": "2025-05-10",
+    "eventTime": "15:00",
+    "eventsImageUrl": "https://example.com/event-image.jpg",
     "location": "Event Location",
-    "max_attendees": 100
+    "maxAttendees": "100",
+    "eventType": "ONLINE"
 }
                         </pre>
+                        <p class="mt-2">Note: <code>eventType</code> must be either <code>ONLINE</code> or <code>IN_PERSON</code></p>
                     </li>
                     <li>
                         <h3 class="text-lg font-bold">Update an Event</h3>
@@ -108,13 +110,15 @@
 {
     "title": "Updated Event Title",
     "description": "Updated description of the event.",
-    "event_date": "2025-05-15",
-    "event_time": "18:00",
-    "event_image_url": "https://example.com/updated-event-image.jpg",
+    "eventDate": "2025-05-15",
+    "eventTime": "18:00",
+    "eventsImageUrl": "https://example.com/updated-event-image.jpg",
     "location": "Updated Location",
-    "max_attendees": 150
+    "maxAttendees": "150",
+    "eventType": "IN_PERSON"
 }
                         </pre>
+                        <p class="mt-2">Note: <code>eventType</code> must be either <code>ONLINE</code> or <code>IN_PERSON</code></p>
                     </li>
                     <li>
                         <h3 class="text-lg font-bold">Delete an Event</h3>
