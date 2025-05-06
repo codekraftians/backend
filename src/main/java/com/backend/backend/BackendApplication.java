@@ -2,8 +2,6 @@ package com.backend.backend;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.context.annotation.Bean;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import io.github.cdimascio.dotenv.*;
 
@@ -16,14 +14,11 @@ public class BackendApplication {
 		System.setProperty("DATABASE_URL", dotenv.get("DATABASE_URL"));
 		System.setProperty("DATABASE_USERNAME", dotenv.get("DATABASE_USERNAME"));
 		System.setProperty("DATABASE_PASSWORD", dotenv.get("DATABASE_PASSWORD"));
+		System.setProperty("JWT_SECRET", dotenv.get("JWT_SECRET"));
 
 		SpringApplication.run(BackendApplication.class, args);
 		System.out.println("Hello World");
 
-		@Bean
-		public BCryptPasswordEncoder bCryptPasswordEncoder(){
-			return new BCryptPasswordEncoder();
-		}
 	}
 
 }

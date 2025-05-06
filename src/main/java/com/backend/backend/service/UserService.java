@@ -25,6 +25,10 @@ public class UserService {
         return userRepository.findById(id).orElse(null);
     }
 
+    public User getUserByEmail(String email) {
+        return userRepository.findByEmail(email).orElse(null);
+    }
+
     public User createUser(User user) {
         // Aquí puedes agregar lógica adicional antes de guardar el usuario, si es
         // necesario
