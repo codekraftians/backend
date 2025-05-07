@@ -25,6 +25,18 @@ public class UserService {
         return userRepository.findById(id).orElse(null);
     }
 
+    public User getUserByEmailAndPassword(String email, String password ) {
+
+        User userEmail = userRepository.findByEmail(email);
+        if ( userEmail == null) {
+            return null;
+        }else if (userEmail.getPassword().equals(password)) {
+            return userEmail;
+        } else {
+            return null;
+        }
+    }
+
     public User createUser(User user) {
         // Aquí puedes agregar lógica adicional antes de guardar el usuario, si es
         // necesario
