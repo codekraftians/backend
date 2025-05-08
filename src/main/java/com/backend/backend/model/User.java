@@ -2,10 +2,6 @@ package com.backend.backend.model;
 
 import java.util.List;
 
-//import com.fasterxml.jackson.annotation.JsonBackReference;
-
-//import com.fasterxml.jackson.annotation.JsonBackReference;
-
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -24,8 +20,6 @@ import jakarta.persistence.Column;
 @Table(name = "users")
 
 public class User {
-    // Propiedades de la entidad
-    // Añadir los arrobas de springboot
 
     @Id
     @SequenceGenerator(name = "user_id_sequence", sequenceName = "user_id_sequence", allocationSize = 1, initialValue = 1)
@@ -54,14 +48,10 @@ public class User {
     private String userImageUrl;
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
-   // @JsonBackReference
+  
     private List<Event> events;
 
-    // Constructores de la entidad
-    
-    // Add a no-args constructor required by JPA
     public User() {
-        // Default constructor required by JPA
     }
     
     public User(int id, String name, String email, String password, String userImageUrl) {
@@ -71,10 +61,6 @@ public class User {
        this.password = password;
        this.userImageUrl = userImageUrl;
     }
-
-   
-
-    // Getters y Setters basicos de la entidad
 
     public int getId() {
         return this.id;
