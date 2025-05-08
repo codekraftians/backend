@@ -15,7 +15,7 @@ public class BackendApplication {
 		System.setProperty("DATABASE_PASSWORD", dotenv.get("DATABASE_PASSWORD"));
 
 		SpringApplication.run(BackendApplication.class, args);
-		System.out.println("Hello World");
+		System.out.println("Welcome To TechSafeSpace!");
 	}
 
 }

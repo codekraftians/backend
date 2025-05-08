@@ -25,12 +25,12 @@ public class UserService {
         return userRepository.findById(id).orElse(null);
     }
 
-    public User getUserByEmailAndPassword(String email, String password ) {
+    public User getUserByEmailAndPassword(String email, String password) {
 
         User userEmail = userRepository.findByEmail(email);
-        if ( userEmail == null) {
+        if (userEmail == null) {
             return null;
-        }else if (userEmail.getPassword().equals(password)) {
+        } else if (userEmail.getPassword().equals(password)) {
             return userEmail;
         } else {
             return null;
@@ -38,22 +38,21 @@ public class UserService {
     }
 
     public User createUser(User user) {
-        // Aquí puedes agregar lógica adicional antes de guardar el usuario, si es
-        // necesario
+
         return userRepository.save(user);
     }
 
     public User updateUser(Integer id, User user) {
-        // Verificar si el usuario existe
+
         return userRepository.findById(id).map(existingUser -> {
-            // Actualizar los campos del usuario existente
+
             existingUser.setName(user.getName());
             existingUser.setEmail(user.getEmail());
             existingUser.setPassword(user.getPassword());
             existingUser.setUserImageUrl(user.getUserImageUrl());
-            // Guardar los cambios
+
             return userRepository.save(existingUser);
-        }).orElse(null); // Si no existe, devolver null o manejar el error
+        }).orElse(null);
     }
 
     public void deleteUser(Integer id) {

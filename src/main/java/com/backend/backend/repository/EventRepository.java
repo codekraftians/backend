@@ -1,7 +1,6 @@
 package com.backend.backend.repository;
 
 import com.backend.backend.model.Event;
-//import com.backend.backend.model.Category;
 import com.backend.backend.model.User;
 import com.backend.backend.model.CategoryType;
 import org.springframework.data.domain.Page;
@@ -14,7 +13,6 @@ import java.util.List;
 @Repository
 public interface EventRepository extends JpaRepository<Event, Integer> {
 
-   //segun los requisitos
     List<Event> findByTitle(String title);
 
     Page<Event> findByEventType(CategoryType eventType, Pageable pageable);

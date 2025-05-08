@@ -1,11 +1,6 @@
 package com.backend.backend.model;
 
-//import com.fasterxml.jackson.annotation.JsonBackReference;
-//import com.fasterxml.jackson.annotation.JsonIgnore;
-
 import jakarta.persistence.Column;
-
-//import com.fasterxml.jackson.annotation.JsonBackReference;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -15,7 +10,6 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.SequenceGenerator;
 import jakarta.persistence.Table;
-//import jakarta.persistence.Transient;
 import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.Size;
 import jakarta.validation.constraints.NotBlank;
@@ -23,11 +17,9 @@ import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
 import jakarta.validation.constraints.NotNull;
 
-
 @Entity
 @Table(name = "events")
 public class Event {
-   
 
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "events_seq")
@@ -74,7 +66,6 @@ public class Event {
     @Pattern(regexp = "^[0-9]+$", message = "Max attendees must be a number")
     private String maxAttendees;
 
-    // Campo para el tipo de evento seleccionado por el usuario
     @Column(nullable = false)
     @NotNull(message = "Event type is required")
     @Enumerated(EnumType.STRING)
@@ -82,31 +73,11 @@ public class Event {
 
     @ManyToOne
     @JoinColumn(name = "user_id", nullable = false)
-    //@JsonBackReference
     private User user;
-
-   
-
-    // Constructores de la entidad
-    //public Event(int id, String title, String description, String eventDate, String eventsImageUrl, String eventTime,
-      //      String location, String maxAttendees, Category category, User user) {
-       // this.id = id;
-       // this.title = title;
-       // this.description = description;
-         //this.eventDate = eventDate;
-        //this.eventsImageUrl = eventsImageUrl;
-        //this.eventTime = eventTime;
-        //this.location = location;
-        //this.maxAttendees = maxAttendees;
-        //this.category = category;
-        //this.user = user;
-    //}
 
     public Event() {
 
     }
-
-    // Getters y Setters basicos de la entidad
 
     public int getId() {
         return this.id;
@@ -131,6 +102,7 @@ public class Event {
     public void setDescription(String description) {
         this.description = description;
     }
+
     public String getEventDate() {
         return this.eventDate;
     }
@@ -178,11 +150,11 @@ public class Event {
     public void setUser(User user) {
         this.user = user;
     }
-    
+
     public CategoryType getEventType() {
         return this.eventType;
     }
-    
+
     public void setEventType(CategoryType eventType) {
         this.eventType = eventType;
     }

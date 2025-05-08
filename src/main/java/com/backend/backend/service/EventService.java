@@ -8,43 +8,33 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
-//import com.backend.backend.Validation.ResourceNotFoundException;
-//import com.backend.backend.exception.ResourceNotFoundException;
 import com.backend.backend.model.Event;
 import com.backend.backend.model.User;
-//import com.backend.backend.model.Category;
-//import com.backend.backend.model.CategoryType;
 import com.backend.backend.repository.EventRepository;
 import com.backend.backend.repository.UserRepository;
-//import com.backend.backend.repository.CategoryRepository;
 
 @Service
 public class EventService {
 
     private final EventRepository eventRepository;
     private final UserRepository userRepository;
-   // private final CategoryRepository categoryRepository;
 
     @Autowired
     public EventService(EventRepository eventRepository, UserRepository userRepository) {
         this.eventRepository = eventRepository;
         this.userRepository = userRepository;
-        // Eliminar la inicialización de categoryRepository
-        // this.categoryRepository = categoryRepository;
     }
 
     @Transactional
     public Event createEvent(Event event, Integer userId) {
-        // Validar usuario
+
         Optional<User> userOptional = userRepository.findById(userId);
         if (userOptional.isEmpty()) {
-            return null; // Indicar que no se encontró el usuario
+            return null;
         }
-        
-        // Ya no necesitamos buscar una categoría
-        // Simplemente asignamos el usuario
+
         event.setUser(userOptional.get());
-        
+
         return eventRepository.save(event);
     }
 

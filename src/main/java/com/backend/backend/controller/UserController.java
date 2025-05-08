@@ -21,21 +21,18 @@ public class UserController {
         this.userService = userService;
     }
 
-    // Create a new user
     @PostMapping
     public ResponseEntity<User> addUser(@Valid @RequestBody User user) {
         User createdUser = userService.createUser(user);
         return new ResponseEntity<>(createdUser, HttpStatus.CREATED);
     }
 
-    // Get all users
     @GetMapping
     public ResponseEntity<List<User>> getAllUsers() {
         List<User> users = userService.getAllUsers();
         return new ResponseEntity<>(users, HttpStatus.OK);
     }
 
-    // Get user by ID
     @GetMapping("/{id}")
     public ResponseEntity<User> getUserById(@PathVariable Integer id) {
         User user = userService.getUserById(id);
@@ -46,7 +43,6 @@ public class UserController {
         }
     }
 
-    // Get user by email and password
     @GetMapping("/login")
     public ResponseEntity<User> getUserByEmailAndPassword(@RequestParam String email, @RequestParam String password) {
         User user = userService.getUserByEmailAndPassword(email, password);
@@ -57,7 +53,6 @@ public class UserController {
         }
     }
 
-    // Update user by ID
     @PutMapping("/{id}")
     public ResponseEntity<User> updateUser(@PathVariable Integer id, @Valid @RequestBody User user) {
         User updatedUser = userService.updateUser(id, user);
@@ -68,7 +63,6 @@ public class UserController {
         }
     }
 
-    // Delete user by ID
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteUser(@PathVariable Integer id) {
         userService.deleteUser(id);
